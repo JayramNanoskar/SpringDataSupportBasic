@@ -15,24 +15,21 @@ import com.jayram.model.Circle;
 
 @Component
 public class JdbcDaoImpl {
+		
+		@Autowired
+		private DataSource dataSource;
 
-	@Autowired
-	private DataSource dataSource;
+		public DataSource getDataSource() {
+			return dataSource;
+		}
 
-	public DataSource getDataSource() {
-		return dataSource;
-	}
-
-	public void setDataSource(DataSource dataSource) {
-		this.dataSource = dataSource;
-	}
-
-	public Circle getCircle(int circleId){
+		public void setDataSource(DataSource dataSource) {
+			this.dataSource = dataSource;
+		}
+		
+		public Circle getCircle(int circleId){
 		Connection conn = null;
 		try{
-		String driver = "org.apache.derby.jdbc.ClientDriver";
-		Class.forName(driver).newInstance();
-		conn = DriverManager.getConnection("jdbc:derby://localhost:1527/db");
 		conn = dataSource.getConnection();
 		PreparedStatement ps = conn.prepareStatement("select * from Circle where id = ?");
 		ps.setInt(1, circleId);

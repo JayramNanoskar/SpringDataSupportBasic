@@ -1,0 +1,8 @@
+CREATE TABLE circle
+    (ID INTEGER ,
+    NAME VARCHAR(50));
+
+show tables;
+insert into circle values(1, 'First Circle');
+select * from circle;
+exit;

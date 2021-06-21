@@ -7,9 +7,10 @@
    http://www.springframework.org/schema/context/spring-context.xsd"
    xmlns:context="http://www.springframework.org/schema/context">
    
-   <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource"> <!-- Datasource Spring bean using DriverManagerDataSource -->
+   <bean id="dataSource" class="org.apache.commons.dbcp2.BasicDataSource"> <!-- Datasource bean using Apache BasicDataSource. It does connection pooling -->
 		<property name="driverClassName" value="org.apache.derby.jdbc.ClientDriver"></property>
 		<property name="url" value="jdbc:derby://localhost:1527/db;create=true"></property>
+		<property name="initialSize" value="2"></property>
    </bean>
    
    <context:annotation-config/> <!-- To define all annotations related to BeanPostProcessor we can use this tag alone -->

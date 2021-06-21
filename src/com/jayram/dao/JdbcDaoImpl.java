@@ -6,8 +6,11 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import org.springframework.stereotype.Component;
+
 import com.jayram.model.Circle;
 
+@Component
 public class JdbcDaoImpl {
 	public Circle getCircle(int circleId){
 		Connection conn = null;

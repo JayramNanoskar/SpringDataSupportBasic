@@ -1,3 +1,4 @@
+connect 'jdbc:derby://localhost:1527/db;create=true';
 CREATE TABLE circle
     (ID INTEGER ,
     NAME VARCHAR(50));

@@ -87,6 +87,16 @@ public class JdbcDaoImpl {
 		return jdbcTemplate.query(sql, new CircleMapper());
 	}
 
+	public void insert(Circle circle){
+		String sql = "insert into Circle(Id, Name) values(?, ?)";
+		jdbcTemplate.update(sql, circle.getId(), circle.getName());
+	}
+
+	public void createTriangleTable(){
+		String sql = "create table Triangle(Id integer, Name varchar(50))";
+		jdbcTemplate.execute(sql);
+	}
+
 	private static final class CircleMapper implements RowMapper<Circle>{
 
 		@Override

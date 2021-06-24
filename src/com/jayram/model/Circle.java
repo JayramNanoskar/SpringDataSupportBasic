@@ -21,5 +21,7 @@ public class Circle {
 		setId(id);
 		setName(name);
 	}
+	public Circle() {
+	}
 
 }

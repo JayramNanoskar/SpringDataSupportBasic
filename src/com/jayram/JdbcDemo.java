@@ -12,6 +12,9 @@ public class JdbcDemo {
 		ApplicationContext context = new ClassPathXmlApplicationContext("spring.xml");
 		JdbcDaoImpl dao = context.getBean("jdbcDaoImpl", JdbcDaoImpl.class);
 		System.out.println(dao.getCircleCount());
+		System.out.println(dao.getCircleName(1));
+		System.out.println(dao.getCircleForId(1).getName());
+		System.out.println(dao.getAllCircles().size());
 	}
 
 }

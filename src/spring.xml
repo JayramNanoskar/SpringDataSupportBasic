@@ -17,6 +17,16 @@
 		<property name="dataSource" ref="dataSource"></property>
    </bean>
 
+   <bean id="sessionFactory" class="org.springframework.orm.hibernate5.LocalSessionFactoryBean">
+		<property name="dataSource" ref="dataSource"></property>
+		<property name="packagesToScan" value="com.jayram.model"></property> <!-- Lets Hibernate ckecks for annotated classes in mentioned package -->
+		<property name="hibernateProperties"> <!-- It contains all the properties which we normally set in hibernate.cfg.xml file -->
+			<props>
+				<prop key="dialect">org.hibernate.dialect.DerbyDialect</prop>
+			</props>
+		</property>
+   </bean>
+
    <context:annotation-config/> <!-- To define all annotations related to BeanPostProcessor we can use this tag alone -->
  	<context:component-scan base-package="com.jayram" />
  </beans>

@@ -12,7 +12,11 @@
 		<property name="url" value="jdbc:derby://localhost:1527/db;create=true"></property>
 		<property name="initialSize" value="2"></property>
    </bean>
-   
+
+   <bean id="jdbcDaoSupportImpl" class="com.jayram.dao.JdbcDaoSupportImpl"> <!-- Creating JdbcDaoSupport bean & setting DataSource -->
+		<property name="dataSource" ref="dataSource"></property>
+   </bean>
+
    <context:annotation-config/> <!-- To define all annotations related to BeanPostProcessor we can use this tag alone -->
  	<context:component-scan base-package="com.jayram" />
  </beans>

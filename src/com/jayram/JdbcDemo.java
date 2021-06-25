@@ -4,6 +4,7 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import com.jayram.dao.JdbcDaoImpl;
+import com.jayram.dao.JdbcDaoSupportImpl;
 import com.jayram.model.Circle;
 
 public class JdbcDemo {
@@ -15,6 +16,8 @@ public class JdbcDemo {
 		dao.insert(new Circle(3, "Third Circle"));
 		System.out.println(dao.getAllCircles().size());
 		dao.createTriangleTable();
+		JdbcDaoSupportImpl daObj = context.getBean("jdbcDaoSupportImpl", JdbcDaoSupportImpl.class);
+		System.out.println(daObj.getCircleCount());
 	}
 
 }

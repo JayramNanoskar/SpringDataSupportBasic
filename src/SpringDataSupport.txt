@@ -1,0 +1,104 @@
+---------------------------------------------------------------Spring Data Support------------------------------------------------------------
+**Introduction to Spring Data:
+-Spring Data support is specifically for the purpose of our application interacting with data or database. 
+-While writing java code to interact with database, we need to write code for irrespective of what business logic i.e. Open & close connection, managing transactions, writing other boiler plate code etc. but by using Spring data support we can go away with writing those extra code & code we need to write is just specific for business case/problem we are trying to solve.
+-Spring has JDBC module which provides abstraction layer & all tedious coding get taken away with JDBC module, spring also has ORM module for different ORM frameworks like JPA, Hibernate etc .
+
+
+->Setting Up Database:
+-Apache derby: It is light weight, in-memory, open source db.
+-Apache derby setup: Download & install derby distributions & set up environment variables.
+-Apache derby checkup: after setting up, check Network server running. We can write queries inside ij client.
+-For example..
+			CONNECT 'jdbc:derby://localhost:1527/db;create=true';
+
+			CREATE TABLE circle
+				(ID INTEGER ,
+				NAME VARCHAR(50));
+
+			show tables;
+			insert into circle values(1, 'First Circle');
+			select * from circle;
+			exit;
+
+
+**Using JDBC without Spring:
+-JDBC are set of APIs to connect to database.
+
+
+**Adding Spring and DataSource Configuration:
+1.Adding spring library, configuration xml.
+2.To remove creating instance with new keyword 
+Add @Component on java class & adding <context:component-scan base-package="package_path" /> in configuration xml.
+3.For db connection getting code in dao, we can use DriverManagerDataSource class from spring jdbc jar and configure DataSource bean in configuration xml with properties like driverClassName, url, etc. and use @Autowired on created bean reference in any dao class to use it further whenever required.
+-DriverManagerDataSource class is sample datasource implemention provided by spring. It is not very efficient. It does not implements connection pooling. Every time it creates new connection, so not ideal on production system.
+-Hence, using implemention of Apache commons DBCP which uses connection pooling is efficient. We can just change in configuration xml to configure it.
+
+
+**Using JdbcTemplate:
+-It is spring jdbc implemention. It simplifies the use of JDBC. It internally uses JDBC api, but eliminates a lot of problems of JDBC API.
+-Spring JdbcTemplate takes care of all the things that are common that we would have to do across DAO methods.
+
+
+->Implementing RowMapper & Returning custom Datatypes from JdbcTemplate:
+-RowMapper is an interface.
+-RowMapper tells spring JdbcTemplate how to map the values.
+-RowMapper's method get execute for every record present in resultset.
+
+
+->Performing Write Operations with JdbcTemplate:
+-We can use update method to do write operations.
+
+
+->Performing DDL Operations with JdbcTemplate:
+-We can use execute method to do DDL operations.
+
+
+->Named Parameter JDBC Template:
+-With JdbcTemplate class we cannot have named parameter placeholder, can have only '?' placeholder in queries.
+-So using NamedParameterJdbcTemplate class is helpful incase providing named parameter placeholder.
+-SimpleJdbcTemplate is another class which provide most common functionality of both JdbcTemplate and NamedParameterJdbcTemplate.
+
+
+->DAO Support Classes:
+-Spring provides DAO Support Classes
+for JdbcTemplate - JdbcDaoSupport,
+for NamedParameterJdbcTemplate - NamedParameterJdbcDaoSupport,
+for SimpleJdbcTemplate - SimpleJdbcDaoSupport but It is deprecated now.
+-DAO Support Classes separates commonly used code in provided templates.
+
+
+**Using Hibernate with Spring:
+-Spring & Hibernate both are lightweight frameworks. The way in which they are architected, it is easy to couple them both. It is very common to see combination of spring-hibernate on production applications.
+-With Spring, JdbcTemplate can be use to fetch the data.
+-With Hibernate, Based on SessionFactory, we can create different Session object then we can use different methods of session object to fetch the data. SessionFactory in Hibernate is singleton, will have one object per application. SessionFactory is expensive object. One connection to database will have one SessionFactory object.
+-Hibernate SessionFactory concept matches with Spring bean concept of singleton.
+-Two basic types of bean in spring, singleton & prototype.
+-One of the simplest way to integrate hibernate with spring is to have bean for SessionFactory and make it as a singleton and DAO classes just get that bean, inject the bean dependency and then get a session from SessionFactory.
+-Spring also provide support classes for Hibernate like AnnotationSessionFactoryBean.
+
+
+->Hibernate:
+-It is an ORM tool used in the data layer of applications where we want to persist application data into a database. 
+-It implements JPA(Java Persistent API), those are standard for implementation.
+-JPA allows you to avoid writing DML in the database specific dialect of SQL. JPA allows you to load and save Java objects without any DML language at all. When we do need to perform queries JPQL allows you to express the queries in terms of the Java entities rather than the (native) SQL tables and columns.
+-Create DAO class which uses Hibernate, not plain jdbc or spring jdbctemplate.
+-Hibernate is an ORM framework, we need to have model objects and we also need to provide information to hibernate on how to map those model objects to tables in the database.
+
+
+->Hibernate set up:
+-Download the Hibernate jar files and add them to project classpath by adding into user library.
+-Add particular database driver in project classpath.
+-If we are using Hibernate without spring then we need to specify hibernate configuration in hibernate.cfg.xml file otherwise if we are using hibernate with spring then we can configure it in spring.xml itself.
+
+
+->The problems hibernate solves:
+-Mapping member variables to columns.
+-Mapping relationships(primary key, foreign key etc.)
+-Handling data types.
+-Managing changes to object state(incase any entity in Database get change).
+
+
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------
+

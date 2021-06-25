@@ -12,7 +12,7 @@ public class JdbcDemo {
 		ApplicationContext context = new ClassPathXmlApplicationContext("spring.xml");
 		JdbcDaoImpl dao = context.getBean("jdbcDaoImpl", JdbcDaoImpl.class);
 		System.out.println(dao.getCircleForId(1).getName());
-		dao.insert(new Circle(2, "Second Circle"));
+		dao.insert(new Circle(3, "Third Circle"));
 		System.out.println(dao.getAllCircles().size());
 		dao.createTriangleTable();
 	}
